@@ -1,0 +1,2 @@
+crystalpvp (CrystalPvP) bool false
+autototem (AutoTotem) bool false
