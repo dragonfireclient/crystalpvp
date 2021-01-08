@@ -35,14 +35,14 @@ minetest.register_globalstep(function(dtime)
 					minetest.switch_to_item("mcl_end:crystal")
 					minetest.place_node(pos)
 					placed_crystal = true
-				end	
+				end
 			end
 			used_sneak = true
 		else
 			used_sneak = false
 		end
 	end
-	
+
 	if minetest.settings:get_bool("autototem") then
 		local totem_stack = minetest.get_inventory("current_player").main[9]
 		if totem_stack and totem_stack:get_name() ~= "mobs_mc:totem" then
@@ -54,7 +54,16 @@ minetest.register_globalstep(function(dtime)
 			end
 		end
 	end
+
+	if minetest.settings:get_bool("crystalaura") then
+		for _, obj in ipairs(minetest.get_nearby_objects(7)) do
+			if obj:get_item_textures() == "mcl_end_crystal.png" then
+				obj:punch()
+			end
+		end
+	end
 end)
- 
+
 minetest.register_cheat("CrystalPvP", "Combat", "crystal_pvp")
 minetest.register_cheat("AutoTotem", "Combat", "autototem")
+minetest.register_cheat("CrystalAura", "Combat", "crystalaura")
